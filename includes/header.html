@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title><?php echo $page_title; ?></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="stylesheet" href="layout/styles/layout.css" type="text/css" />
+    <script type="text/javascript" src="layout/scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="layout/scripts/jquery.cycle.min.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            $('#featured_slide').after('<div id="fsn"><ul id="fs_pagination">').cycle({
+                timeout: 5000,
+                fx: 'fade',
+                pager: '#fs_pagination',
+                pause: 1,
+                pauseOnPagerHover: 0
+            });
+        });
+    </script>
+</head>
+<body id="top">
+<div class="wrapper col0">
+    <div id="topline">
+        <ul>
+            <?php // Create a login/logout link:
+if (isset($_SESSION['user_id'])) {
+	echo '<li class="last"><a href="logout.php">Logout</a></li>';
+            } else {
+            echo '<li><a href="./register.php">Register</a></li>
+            <li class="last"><a href="login.php">Login</a></li>';
+            }
+            ?>
+        </ul>
+        <div id="search">
+            <form action="#" method="post">
+                <fieldset>
+                    <legend>Site Search</legend>
+                    <input type="text" value="Search Our Website&hellip;"  onfocus="this.value=(this.value=='Search Our Website&hellip;')? '' : this.value ;" />
+                    <input type="submit" name="go" id="go" value="Search" />
+                </fieldset>
+            </form>
+        </div>
+        <br class="clear" />
+    </div>
+</div>
+    <!-- ####################################################################################################### -->
+
+    <div class="wrapper col1">
+        <div id="header">
+            <div id="topnav">
+                <ul>
+                    <li class="last"><a href="#">Magazin</a><span>Music, movies ...</span></li>
+                    <li><a href="#">Sport</a><span>Football, tennis ...</span></li>
+                    <li><a href="#">Business</a><span>Economy ...</span></li>
+                    <li><a href="#">News</a><span>Politics</span></li>
+                    <li class="active"><a href="index.php">Homepage</a><span>go back</span></li>
+                </ul>
+            </div>
+            <div id="logo">
+                <h1><a href="index.php"><strong>K</strong>iks <strong>M</strong>agazine</a></h1>
+                <p>The best news portal ever!</p>
+            </div>
+            <br class="clear" />
+        </div>
+    </div>
+    <!-- ####################################################################################################### -->

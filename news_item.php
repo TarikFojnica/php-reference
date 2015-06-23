@@ -27,23 +27,26 @@ include('./includes/top.html');
     </div>
 
 <div id="comments">
+
+
     <h2>Comments</h2>
     <ul class="commentlist">
-        <li class="comment_odd">
-            <div class="author"><img class="avatar" src="../images/demo/avatar.gif" width="32" height="32" alt="" /><span class="name"><a href="#">A Name</a></span> <span class="wrote">wrote:</span></div>
-            <div class="submitdate"><a href="#">August 4, 2009 at 8:35 am</a></div>
-            <p>This is an example of a comment made on a post. You can either edit the comment, delete the comment or reply to the comment. Use this as a place to respond to the post or to share what you are thinking.</p>
-        </li>
-        <li class="comment_even">
-            <div class="author"><img class="avatar" src="../images/demo/avatar.gif" width="32" height="32" alt="" /><span class="name"><a href="#">A Name</a></span> <span class="wrote">wrote:</span></div>
-            <div class="submitdate"><a href="#">August 4, 2009 at 8:35 am</a></div>
-            <p>This is an example of a comment made on a post. You can either edit the comment, delete the comment or reply to the comment. Use this as a place to respond to the post or to share what you are thinking.</p>
-        </li>
-        <li class="comment_odd">
-            <div class="author"><img class="avatar" src="../images/demo/avatar.gif" width="32" height="32" alt="" /><span class="name"><a href="#">A Name</a></span> <span class="wrote">wrote:</span></div>
-            <div class="submitdate"><a href="#">August 4, 2009 at 8:35 am</a></div>
-            <p>This is an example of a comment made on a post. You can either edit the comment, delete the comment or reply to the comment. Use this as a place to respond to the post or to share what you are thinking.</p>
-        </li>
+        <?php
+            $postid = $_GET['id'];
+            $results = $dbc->query("SELECT * FROM comments WHERE news_id={$_GET['id']}");
+
+            foreach ($results as $row ) {
+                ?>
+               <div class="element" style="width:25%; float:left;">
+                    <p><?php print_r($row ['body']); ?></p>
+               </div>
+
+                <?php
+            }
+
+            mysqli_close($dbc); // Close the database connection.
+        ?>
+
     </ul>
 </div>
 

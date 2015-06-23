@@ -32,7 +32,6 @@ include('./includes/top.html');
     <h2>Comments</h2>
     <ul class="commentlist">
         <?php
-            $postid = $_GET['id'];
             $results = $dbc->query("SELECT * FROM comments WHERE news_id={$_GET['id']}");
 
             foreach ($results as $row ) {
@@ -43,8 +42,6 @@ include('./includes/top.html');
 
                 <?php
             }
-
-            mysqli_close($dbc); // Close the database connection.
         ?>
 
     </ul>
@@ -53,15 +50,49 @@ include('./includes/top.html');
 <h2>Write A Comment</h2>
 
 <div id="respond">
-    <form action="news_item.php" method="post">
+
+    <?php
+        
+        if(isset($_POST['submit-comment'])) {
+            
+
+
+            //$post_id = $_GET['id'];
+           // $post_comment = $_POST['comment'];
+
+
+            //$query = "INSERT INTO comments (news_id, body, date_entered) VALUES('".$post_id."', '".$post_comment."', NOW());";
+            //$result = $dbc->query($query);
+            $post_id = $_GET['id'];
+            $post_comment = $_POST['comment'];
+            // Check connection
+            
+            if ($dbc->connect_error) {
+                die("Connection failed: " . $dbc->connect_error);
+            } 
+
+            $sql = "INSERT INTO comments (news_id, body, user_id, date_entered)
+            VALUES ('$post_id', '$post_comment', '1', NOW())";
+
+            if ($dbc->query($sql) === TRUE) {
+                echo "Successfully posted";
+            } else {
+                echo "Error: " . $sql . "<br>" . $dbc->error;
+            }
+
+            $dbc->close();
+        }
+    ?>
+
+    <form action="" method="post">
         <p>
             <textarea name="comment" id="comment" cols="100%" rows="10"></textarea>
             <label for="comment" style="display:none;"><small>Comment (required)</small></label>
-            <input type="hidden" name="news_id" value="<?php echo $_GET['news']; ?>" />
+            <input type="hidden" name="news_id" value="<?php echo $_GET['id']; ?>" />
             <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>" />
         </p>
         <p>
-            <input name="submit" type="submit" id="submit" value="Submit Comment" />
+            <input name="submit-comment" type="submit" id="submit" value="Submit Comment" />
         </p>
     </form>
 </div>

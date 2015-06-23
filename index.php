@@ -31,7 +31,7 @@ if ($num > 0) { // If it ran OK, display the records.
         echo '<h2>' . $row['title'] . '</h2>';
         echo $news_body;
         echo '</div>';
-        echo '<p class="readmore"><a href="./news_item.php">Continue Reading &raquo;</a></p>';
+        echo '<p class="readmore"><a href="news_item.php?id=$row["news_id"]">Continue Reading &raquo;</a></p>';
         echo '<img src="images/demo/930x375.gif" alt="" /> </div>';
     }
 
